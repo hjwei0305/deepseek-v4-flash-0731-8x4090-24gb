@@ -40,3 +40,32 @@ enforce-eager
 cudagraph_mode=NONE
 tokenizer-mode=deepseek_v4
 reasoning-parser=deepseek_v4
+
+下面是本次实际验证成功的 Docker 启动命令。
+
+```bash
+docker run --rm --gpus all \
+  --ipc=host \
+  --shm-size=32g \
+  -p 19090:8000 \
+  -v /data/models/DeepSeek-V4-Flash-0731:/model:ro \
+  ghcr.io/yhfgyyf/vllm-deepseek-v4-sm89:0.28.1rc1-vision11-sm89-sm120-cu130 \
+  --model /model \
+  --served-model-name DeepSeek-V4-Flash-0731 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --moe-backend auto \
+  --attention-backend FLASHINFER_MLA_SPARSE_DSV4 \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 256 \
+  --max-num-seqs 1 \
+  --max-num-batched-tokens 2048 \
+  --gpu-memory-utilization 0.90 \
+  --cpu-offload-gb 8 \
+  --enforce-eager \
+  --tokenizer-mode deepseek_v4 \
+  --reasoning-parser deepseek_v4 \
+  --compilation-config '{"cudagraph_mode":"NONE"}' \
+  --host 0.0.0.0 \
+  --port 8000
