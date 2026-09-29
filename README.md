@@ -43,7 +43,6 @@ reasoning-parser=deepseek_v4
 
 下面是本次实际验证成功的 Docker 启动命令。
 
-```bash
 docker run --rm --gpus all \
   --ipc=host \
   --shm-size=32g \
