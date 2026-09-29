@@ -1,6 +1,5 @@
 # Troubleshooting
 
-本次服务器使用 `docker-compose 1.29.2`。
 
 ## Unsupported architecture
 
