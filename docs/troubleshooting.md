@@ -1,19 +1,5 @@
 # Troubleshooting
 
-## docker compose 不存在
-
-如果：
-
-```text
-docker: unknown command: docker compose
-```
-
-检查：
-
-```bash
-docker-compose --version
-```
-
 本次服务器使用 `docker-compose 1.29.2`。
 
 ## Unsupported architecture
